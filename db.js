@@ -1,8 +1,9 @@
-const { Schema, default: mongoose } = require("mongoose");
-const course = require("./routes/course");
-mongoose.connect("mongodb+srv://botnetmalware12:OHKRvl5RQrTmPj@cluster0.wp11b.mongodb.net/CourseApp");
+const mongoose = require("mongoose");
 
-const userSchema = Schema({
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
+
+const userSchema = new Schema({
     email: {type : String, unique: true}, //make new email and avoid pre-existing ones
     password : String,
     firstName : String,
@@ -10,31 +11,31 @@ const userSchema = Schema({
 
 });
 
-const adminSchema = Schema({
+const adminSchema = new Schema({
     email: {type : String, unique: true}, //make new email and avoid pre-existing ones
     password : String,
     firstName : String,
     lastName : String,
 });
 
-const couresSchema = Schema({
+const couresSchema = new Schema({
     title : String,
     description : String,
     price : Number,
     imageurl : String,
-    creaotrId : ObjectId,
+    creatorId : ObjectId,
 });
 
-const purchaseSchema = Schema({
+const purchaseSchema = new Schema({
     userId : ObjectId,
     courseId: ObjectId
 
 });
 
-const userModel = mongoose.Model("user", userSchema);
-const adminModel = mongoose.Model("admin", adminSchema);
-const courseModel = mongoose.Model("course", couresSchema);
-const purchaseModel = mongoose.Model("purchase", purchaseSchema);
+const userModel = mongoose.model("user", userSchema);
+const adminModel = mongoose.model("admin", adminSchema);
+const courseModel = mongoose.model("course", couresSchema);
+const purchaseModel = mongoose.model("purchase", purchaseSchema);
 
 module.exports = {
     userModel,
